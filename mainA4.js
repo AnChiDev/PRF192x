@@ -1,10 +1,8 @@
 $(document).ready(function() {
-    var api = 'aef0f57113007fd1c474fdd9628b204c';
-    var api1 = '87da215b042b46f89eba2fbe4760c813';
-    var api2 = 'affa2f2c9868da5de07f7cc91e47ed39';
-    var api3 = '434195d4881ae28b76cbc10e3e5abaf8';
+    var api = 'cb70654f0346d026ba7d60b61233b3bb';
+
     loadnews();
-    loadCovid();
+    loadTech();
     $('#tinhot').click(function() {
         loadTopic('breaking-news');
     });
@@ -27,7 +25,7 @@ $(document).ready(function() {
     //show hide loading 
     function loadnews() {
         $('.loading').show();
-        fetch('https://gnews.io/api/v4/top-headlines?&token=' + api1 + '&lang=en')
+        fetch('https://gnews.io/api/v4/top-headlines?&token=' + api + '&lang=en')
             .then(function(response) {
                 return response.json();
             })
@@ -42,7 +40,7 @@ $(document).ready(function() {
 
     function loadTopic(topic) {
         $(".loading").show();
-        fetch('https://gnews.io/api/v4/top-headlines?topic=' + topic + '&token=' + api1 + '&lang=en')
+        fetch('https://gnews.io/api/v4/top-headlines?topic=' + topic + '&token=' + api+ '&lang=en')
             .then(function(response) {
                 return response.json();
             })
@@ -67,24 +65,24 @@ $(document).ready(function() {
         }
     }
 
-    function loadCovid() {
+    function loadTech() {
         $('.loadingcv').show();
-        fetch('https://gnews.io/api/v4/top-headlines?&token=' + api2 + '&lang=en')
+        fetch('https://gnews.io/api/v4/top-headlines?&token=' +api +'&lang=en&topic=technology')
             .then(function(response) {
                 return response.json();
             })
             .then(function(data) {
-                appendCovid(data);
+                appendTech(data);
             })
             .then(function() {
                 $('.loadingcv').hide();
             });
     }
 
-    function appendCovid(data) {
-        $('.covid').html('');
+    function appendTech(data) {
+        $('.tech').html('');
         for (let i = 1; i < 9; i++) {
-            $('.covid').append('<article class = "covid-' + i + ' card col-3 d-inline-block"><div class = "col-12"><img src = "' + data.articles[i].image + '" class = "img-fluid"></div><div class = "col-12 text"><a href = "' + data.articles[i].url + ' " class = "headline" target="_blank"><h5>' + data.articles[i].title + '</h5></a><p class = "tacgia">Đăng bởi <span class = "author">' + data.articles[i].source.name + '</span></p><p class = "noidung">' + data.articles[i].description + '</p><div class = "link"><a href = "' + data.articles[i].url + '" class = "read-more" target="_blank">Đọc tiếp</a></div></div></article>');
+            $('.tech').append('<article class = "tech' + i + ' card col-3 d-inline-block"><div class = "col-12"><img src = "' + data.articles[i].image + '" class = "img-fluid"></div><div class = "col-12 text"><a href = "' + data.articles[i].url + ' " class = "headline" target="_blank"><h5>' + data.articles[i].title + '</h5></a><p class = "tacgia">Đăng bởi <span class = "author">' + data.articles[i].source.name + '</span></p><p class = "noidung">' + data.articles[i].description + '</p><div class = "link"><a href = "' + data.articles[i].url + '" class = "read-more" target="_blank">Đọc tiếp</a></div></div></article>');
         }
     }
 
@@ -93,7 +91,7 @@ $(document).ready(function() {
         var keyword = prompt('Nhập thông tin cần tìm');
 
         if (keyword != '') {
-            request = 'https://gnews.io/api/v4/search?q=' + keyword + '&token=' + api3 + '&lang=en';
+            request = 'https://gnews.io/api/v4/search?q=' + keyword + '&token=' + api + '&lang=en';
             $(".loading").show();
             fetch(request)
                 .then(function(response) {
